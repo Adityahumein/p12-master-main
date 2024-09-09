@@ -1,4 +1,3 @@
-// Dashboard.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import PieChart from './PieChart'; // Adjust the path as necessary
@@ -41,9 +40,10 @@ export default function Dashboard() {
     <div className="dashboard-container">
       <h1 className="dashboard-heading">Dashboard</h1>
       {registrationData.subOrganizationType ? (
-        <div>
+        <div className="dashboard-content">
           <div className="registration-details">
             <h2>Registration Details</h2>
+            
             <p><strong>Organization Type:</strong> {registrationData.organizationType}</p>
             <p><strong>Sub Organization Type:</strong> {registrationData.subOrganizationType}</p>
             <p><strong>First Name:</strong> {registrationData.firstName}</p>
@@ -65,7 +65,9 @@ export default function Dashboard() {
             <p><strong>Coordinator Contact Number:</strong> {registrationData.coordinatorContactNumber}</p>
             <p><strong>Coordinator Email ID:</strong> {registrationData.coordinatorEmailID}</p>
           </div>
-          <PieChart data={registrationData} />
+          <div className="pie-chart">
+            <PieChart data={registrationData} />
+          </div>
         </div>
       ) : (
         <div>You are not registered. Please register first.</div>

@@ -8,6 +8,7 @@
 }
 
 .App {
+  flex: 1;
   background-color: #f5f5f5;
   color: #333; 
   padding-top: 0;
@@ -114,6 +115,7 @@
 .heading {
   margin: 0; /* Remove the margin for better alignment */
   font-size: xx-large;
+  position: relative;
   color: #fff; /* Default heading color */
   text-align: center;
   text-decoration: none;
@@ -473,7 +475,7 @@
 
 /* home */
 
-.home-heading { 
+.home-heading {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -558,6 +560,8 @@
   text-decoration: none;
   transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition effects */
   cursor: pointer;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .read-more-btn:hover {
@@ -582,7 +586,7 @@
 /* home */
 /* footer */
 .footer {
-  margin-top: 70px;
+  margin-top: 50vh;
   background-color: #333;
   color: #fff;
   display: flex;
@@ -656,7 +660,9 @@
 .aboutus-container {
   max-width: 1200px;
   margin: 40px auto;
+  margin-top: 10px;
   padding: 40px;
+ 
   background-color: #f9f9f9;
   border: 1px solid #ddd;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -713,6 +719,7 @@
   max-width: 800px;
   margin: 40px auto;
   padding: 20px;
+  margin-top: -20px;
   background-color: #f9f9f9;
   border: 1px solid #ddd;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -735,6 +742,7 @@
   max-width: 800px;
   margin: 40px auto;
   padding: 30px;
+  margin-top: 20px;
   background-color: #f9f9f9;
   border: 1px solid #ddd;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -780,28 +788,53 @@
 /* Dashboard.css */
 
 .dashboard-container {
+  flex: 1;
   padding: 20px;
   font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-content {
+  margin-left: 20px;
+  display: flex;
+  align-items: flex-start; /* Align items to the top */
+  gap: 20px; /* Add some space between the pie chart and the details */
 }
 
 .dashboard-heading {
+  text-align: center;
   font-size: 2rem;
   margin-bottom: 20px;
 }
 
+.registration-details p,.registration-details h2{
+  margin-left: 30%;
+}
 .registration-details {
+  
+  flex: 1; /* Allow the registration details to grow and fill space */
   border: 1px solid #ddd;
   border-radius: 5px;
   padding: 20px;
   background-color: #f9f9f9;
 }
+.piechart{
+  height: 50vh;
 
-.registration-details p {
-  margin: 10px 0;
 }
-
-.registration-details strong {
-  color: #333;
+.pie-chart {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  background-color: #f9f9f9;
+  flex: 0 1 40%; /* Take up 40% of the width */
+  height: 132.5vh;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+.dark-mode .registration-details,.dark-mode .pie-chart{
+  color: black;
 }
 
 .error-message {
@@ -814,8 +847,3 @@
   color: #666;
 }
 
-/* dashboard */
-.pie-chart{
-  height: 50vh;
-  width: 50vw;
-}

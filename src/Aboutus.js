@@ -3,6 +3,7 @@ import './App.css';
 
 export default function Aboutus() {
   return (
+    <div className='about-us'>
     <div className='aboutus-container'>
       <h1>About Us</h1>
       <div className='aboutus-content'>
@@ -12,6 +13,7 @@ export default function Aboutus() {
         </p>
         
       </div>
+    </div>
     </div>
   );
 }

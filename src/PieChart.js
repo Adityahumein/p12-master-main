@@ -2,7 +2,7 @@
 import React from 'react';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement } from 'chart.js';
-
+import './App.css'
 ChartJS.register(Title, Tooltip, Legend, ArcElement);
 
 const PieChart = ({ data }) => {
@@ -24,7 +24,7 @@ const PieChart = ({ data }) => {
   };
 
   return (
-    <div className="pie-chart">
+    <div className="piechart">
       <h2>Request Status Pie Chart</h2>
       <Pie data={chartData} />
     </div>
