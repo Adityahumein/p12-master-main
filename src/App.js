@@ -1,4 +1,4 @@
-// App.js
+
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navbar from './Navbar';
@@ -8,7 +8,6 @@ import Registration from './Registration';
 import Aboutus from './Aboutus';
 import Home from './Home';
 import Footer from './Footer';
-import Chatbox from './Chatbox';
 import Termsandcondition from './Termsandcondition';
 import Disclaimer from './Disclaimer';
 import axios from 'axios';

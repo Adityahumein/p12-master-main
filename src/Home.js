@@ -11,7 +11,7 @@ const images = [
 
 export default function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isDarkMode, setIsDarkMode] = useState(false); // Example state for dark mode
+  const [isDarkMode, setIsDarkMode] = useState(false); 
 
   const handleNextClick = () => {
     setCurrentIndex((currentIndex + 1) % images.length);

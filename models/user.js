@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema({
     coordinatorEmailID: String,
   },
   registrationCompleted: { type: Boolean, default: false },
-  requestStatus: { // New field for request status
+  requestStatus: { 
     requestReceived: Number,
     inProgress: Number,
     completed: Number,

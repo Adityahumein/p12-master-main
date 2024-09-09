@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import PieChart from './PieChart'; // Adjust the path as necessary
+import PieChart from './PieChart'; 
 import './App.css';
 
 export default function Dashboard() {

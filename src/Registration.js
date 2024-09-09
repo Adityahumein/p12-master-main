@@ -41,10 +41,10 @@ export default function Registration() {
           validate={(values) => {
             const errors = {};
 
-            // Organization Type
+            
             if (!values.organizationType) errors.organizationType = 'Required';
 
-            // Names
+            
             if (!values.firstName) {
               errors.firstName = 'Required';
             } else if (!/^[A-Za-z]+$/.test(values.firstName)) {
@@ -57,10 +57,10 @@ export default function Registration() {
               errors.lastName = 'Invalid Last Name';
             }
 
-            // Organization Name
+            
             if (!values.organizationName) errors.organizationName = 'Required';
 
-            // Contact Numbers
+            
             if (!values.contactNumber) {
               errors.contactNumber = 'Required';
             } else if (!/^\d{10}$/.test(values.contactNumber)) {
@@ -73,17 +73,17 @@ export default function Registration() {
               errors.mobileNumber = 'Invalid Mobile Number';
             }
 
-            // Email
+           
             if (!values.email) {
               errors.email = 'Required';
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
               errors.email = 'Invalid Email Address';
             }
 
-            // Establishment Copy
+            
             if (!values.establishmentCopy) errors.establishmentCopy = 'Required';
             
-            // Organization Details
+            
             if (!values.headOfOrganization) errors.headOfOrganization = 'Required';
 
             if (!values.orgAddress) errors.orgAddress = 'Required';
@@ -100,7 +100,7 @@ export default function Registration() {
               errors.orgEmailID = 'Invalid Organization Email ID';
             }
 
-            // Coordinator Details
+            
             if (!values.coordinatorName) errors.coordinatorName = 'Required';
 
             if (!values.coordinatorContactNumber) {
