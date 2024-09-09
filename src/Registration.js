@@ -1,19 +1,20 @@
-
 import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import axios from 'axios';
 
 export default function Registration() {
   const [step, setStep] = useState(1);
+  const [registrationError, setRegistrationError] = useState('');
 
   const nextStep = () => setStep(step + 1);
   const prevStep = () => setStep(step - 1);
-    
+
   return (
     <div className='registration-form-container'>
-    <div className="registration-form">
-      <h1>Register</h1>
-      <Formik
+      <div className="registration-form">
+        <h1>Register</h1>
+        {registrationError && <div className="error-message">{registrationError}</div>}
+        <Formik
           initialValues={{
             organizationType: '',
             subOrganizationType: '',
@@ -39,35 +40,96 @@ export default function Registration() {
           }}
           validate={(values) => {
             const errors = {};
+
+            // Organization Type
             if (!values.organizationType) errors.organizationType = 'Required';
-            if (!values.lastName) errors.lastName = 'Required';
+
+            // Names
+            if (!values.firstName) {
+              errors.firstName = 'Required';
+            } else if (!/^[A-Za-z]+$/.test(values.firstName)) {
+              errors.firstName = 'Invalid First Name';
+            }
+
+            if (!values.lastName) {
+              errors.lastName = 'Required';
+            } else if (!/^[A-Za-z]+$/.test(values.lastName)) {
+              errors.lastName = 'Invalid Last Name';
+            }
+
+            // Organization Name
             if (!values.organizationName) errors.organizationName = 'Required';
-            if (!values.contactNumber) errors.contactNumber = 'Required';
-            if (!values.mobileNumber) errors.mobileNumber = 'Required';
-            if (!values.email) errors.email = 'Required';
+
+            // Contact Numbers
+            if (!values.contactNumber) {
+              errors.contactNumber = 'Required';
+            } else if (!/^\d{10}$/.test(values.contactNumber)) {
+              errors.contactNumber = 'Invalid Contact Number';
+            }
+
+            if (!values.mobileNumber) {
+              errors.mobileNumber = 'Required';
+            } else if (!/^\d{10}$/.test(values.mobileNumber)) {
+              errors.mobileNumber = 'Invalid Mobile Number';
+            }
+
+            // Email
+            if (!values.email) {
+              errors.email = 'Required';
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+              errors.email = 'Invalid Email Address';
+            }
+
+            // Establishment Copy
             if (!values.establishmentCopy) errors.establishmentCopy = 'Required';
+            
+            // Organization Details
             if (!values.headOfOrganization) errors.headOfOrganization = 'Required';
-            if (!values.orgContactNumber) errors.orgContactNumber = 'Required';
-            if (!values.orgEmailID) errors.orgEmailID = 'Required';
+
+            if (!values.orgAddress) errors.orgAddress = 'Required';
+
+            if (!values.orgContactNumber) {
+              errors.orgContactNumber = 'Required';
+            } else if (!/^\d{10}$/.test(values.orgContactNumber)) {
+              errors.orgContactNumber = 'Invalid Organization Contact Number';
+            }
+
+            if (!values.orgEmailID) {
+              errors.orgEmailID = 'Required';
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.orgEmailID)) {
+              errors.orgEmailID = 'Invalid Organization Email ID';
+            }
+
+            // Coordinator Details
             if (!values.coordinatorName) errors.coordinatorName = 'Required';
-            if (!values.coordinatorContactNumber) errors.coordinatorContactNumber = 'Required';
-            if (!values.coordinatorEmailID) errors.coordinatorEmailID = 'Required';
+
+            if (!values.coordinatorContactNumber) {
+              errors.coordinatorContactNumber = 'Required';
+            } else if (!/^\d{10}$/.test(values.coordinatorContactNumber)) {
+              errors.coordinatorContactNumber = 'Invalid Coordinator Contact Number';
+            }
+
+            if (!values.coordinatorEmailID) {
+              errors.coordinatorEmailID = 'Required';
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.coordinatorEmailID)) {
+              errors.coordinatorEmailID = 'Invalid Coordinator Email ID';
+            }
 
             return errors;
           }}
+
           onSubmit={(values, { setSubmitting }) => {
             const formData = new FormData();
             Object.keys(values).forEach((key) => {
               formData.append(key, values[key]);
             });
-          
-            // Retrieve JWT token from local storage
+
             const token = localStorage.getItem('token');
-          
+
             axios.post('http://localhost:4001/register', formData, {
               headers: {
                 'Content-Type': 'multipart/form-data',
-                'Authorization': `Bearer ${token}`, // Send JWT token
+                'Authorization': `Bearer ${token}`,
               },
             })
             .then((response) => {
@@ -75,13 +137,17 @@ export default function Registration() {
               alert('Registration successful!');
             })
             .catch((error) => {
+              if (error.response && error.response.status === 400) {
+                setRegistrationError('You are already registered.');
+              } else {
+                setRegistrationError('Error during registration. Please try again.');
+              }
               console.error('Error:', error);
             })
             .finally(() => {
               setSubmitting(false);
             });
           }}
-          
         >
           {({ isSubmitting, errors, touched, setFieldValue }) => (
             <Form>
@@ -225,7 +291,7 @@ export default function Registration() {
                     <ErrorMessage name="establishmentCopy" component="div" className="error-message" />
                   </div>
 
-                  <button type="button" onClick={nextStep}>Next</button>
+                  <button type="button" className='read-more-btn' onClick={nextStep}>Next</button>
                 </>
               )}
 
@@ -268,8 +334,8 @@ export default function Registration() {
                     />
                   </div>
 
-                  <button type="button" onClick={prevStep}>Back</button>
-                  <button type="button" onClick={nextStep}>Next</button>
+                  <button type="button" className='read-more-btn' onClick={prevStep}>Back</button>
+                  <button type="button" className='read-more-btn' onClick={nextStep}>Next</button>
                 </>
               )}
 
@@ -303,8 +369,8 @@ export default function Registration() {
                     />
                   </div>
 
-                  <button type="button" onClick={prevStep}>Back</button>
-                  <button type="submit" disabled={isSubmitting}>Submit</button>
+                  <button type="button" className='read-more-btn' onClick={prevStep}>Back</button>
+                  <button type="submit" className='read-more-btn' disabled={isSubmitting}>Submit</button>
                 </>
               )}
             </Form>

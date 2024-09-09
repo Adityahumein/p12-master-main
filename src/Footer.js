@@ -26,7 +26,7 @@ export default function Footer({ darkMode, toggleDarkMode }) {
           </ul>
         </div>
       </div>
-      <p className='a'>&copy; 2023 Team MADSAP. All rights reserved.</p>
+      <p className='a'>&copy; 2024 Team MADSAP. All rights reserved.</p>
       <p className='a'>Created by Team MADSAP</p>
     </div>
   );

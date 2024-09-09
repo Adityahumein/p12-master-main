@@ -11,6 +11,7 @@ const images = [
 
 export default function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isDarkMode, setIsDarkMode] = useState(false); // Example state for dark mode
 
   const handleNextClick = () => {
     setCurrentIndex((currentIndex + 1) % images.length);
@@ -21,7 +22,7 @@ export default function Home() {
   };
 
   return (
-    <div>
+    <div className={isDarkMode ? 'dark-mode' : 'App'}>
       <h1 className='home-heading'>Welcome to AYUSH</h1>
       <p className='home-p'>Start your journey in the AYUSH sector with us. <br /> The AYUSH Startup Support Portal is designed to streamline the registration and regulatory <br /> process for businesses focused on Ayurveda, <br /> Yoga, Unani, Siddha, and Homeopathy. <br /> Whether you're just starting or seeking to scale, <br /> we're here to help you every step of the way.
       Explore the resources below,<br /> register your startup,<br /> upload necessary documents, and track your registration status-all in one place.</p>
@@ -39,7 +40,6 @@ export default function Home() {
       >
         <div className='about-us-section'>
           <h2>About Us<br /></h2>
-          
           <p><b>The Ministry has developed this portal for digitalization <br />of various processes involved in all Central Sector Schemes of the Ministry.</b></p>
           <br />
           <Link to="/aboutus">

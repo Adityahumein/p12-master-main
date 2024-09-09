@@ -29,25 +29,21 @@ function Navbar({ isLoggedIn, onLogout, darkMode, toggleDarkMode }) {
       });
   };
   
-
   return (
     <div className={`navbar ${darkMode ? 'dark-navbar' : ''}`}>
-      <div className="left-nav-links">
-        {isLoggedIn ? (
+      <div className={`nav-buttons ${darkMode ? 'dark-nav-buttons' : ''}`}>
+        
+        
+        {!isLoggedIn ? (
           <>
-            {/* Replace anchor tags with Link */}
-            <Link to="/registration" className={`nav-link ${darkMode ? 'dark-nav-link' : ''}`}>Registration</Link>
-            <Link to="/aboutus" className={`nav-link ${darkMode ? 'dark-nav-link' : ''}`}>About Us</Link>
+            <button className={`nav-button ${darkMode ? 'dark-nav-button' : ''}`} onClick={() => navigate('/login')}>Login</button>
+            <button className={`nav-button ${darkMode ? 'dark-nav-button' : ''}`} onClick={() => navigate('/signup')}>Signup</button>
           </>
         ) : (
-          <>
-            <Link to="/aboutus" className={`nav-link ${darkMode ? 'dark-nav-link' : ''}`}>About Us</Link>
-          </>
+          <button className={`nav-button ${darkMode ? 'dark-nav-button' : ''}`} onClick={handleSignout}>Signout</button>
         )}
       </div>
-      <Link to="/" className={`heading ${darkMode ? 'dark-heading' : ''}`}>Ayush Portal</Link>
-      <div className={`nav-buttons ${darkMode ? 'dark-nav-buttons' : ''}`}>
-        <Switch
+      <Switch
           className={`dark-mode-checkbox ${darkMode ? 'dark-checkbox' : ''}`}
           onChange={toggleDarkMode}
           checked={darkMode}
@@ -61,15 +57,20 @@ function Navbar({ isLoggedIn, onLogout, darkMode, toggleDarkMode }) {
           height={20}
           width={48}
         />
+      <Link to="/" className={`heading ${darkMode ? 'dark-heading' : ''}`}>AYUSH Portal</Link>
+      <div className="bottom-nav-links">
         {isLoggedIn ? (
-          <button className={`nav-button ${darkMode ? 'dark-nav-button' : ''}`} onClick={handleSignout}>Signout</button>
+          <Link to="/registration" className={`nav-link ${darkMode ? 'dark-nav-link' : ''}`}>Registration</Link>
+          
         ) : null}
-        {!isLoggedIn ? (
-          <>
-            <button className={`nav-button ${darkMode ? 'dark-nav-button' : ''}`} onClick={() => navigate('/login')}>Login</button>
-            <button className={`nav-button ${darkMode ? 'dark-nav-button' : ''}`} onClick={() => navigate('/signup')}>Signup</button>
-          </>
+        {isLoggedIn ? (
+          <Link to="/dashboard" className={`nav-link ${darkMode ? 'dark-nav-link' : ''}`}>Dashboard</Link>
+          
         ) : null}
+        
+      
+      
+        <Link to="/aboutus" className={`nav-link ${darkMode ? 'dark-nav-link' : ''}`}>About Us</Link>
       </div>
     </div>
   );

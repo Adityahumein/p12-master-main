@@ -12,6 +12,7 @@ import Chatbox from './Chatbox';
 import Termsandcondition from './Termsandcondition';
 import Disclaimer from './Disclaimer';
 import axios from 'axios';
+import Dashboard from './Dashboard';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [darkMode, setDarkMode] = useState(
@@ -66,6 +67,7 @@ function App() {
           <Route path="/registration" element={<Registration />} />
           <Route path="/aboutus" element={<Aboutus />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/dashboard" element={<Dashboard />}/>
         </Routes>
         <Footer
           darkMode={darkMode} 

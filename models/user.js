@@ -26,9 +26,13 @@ const userSchema = new mongoose.Schema({
     coordinatorName: String,
     coordinatorContactNumber: String,
     coordinatorEmailID: String,
+  },
+  registrationCompleted: { type: Boolean, default: false },
+  requestStatus: { // New field for request status
+    requestReceived: Number,
+    inProgress: Number,
+    completed: Number,
   }
 });
 
-const User = mongoose.model('User', userSchema);
-
-module.exports = User;
+module.exports = mongoose.model('User', userSchema);

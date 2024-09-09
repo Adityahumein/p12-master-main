@@ -47,7 +47,7 @@ const authenticateToken = (req, res, next) => {
 
 
 // Multer configuration for file upload
-const upload = multer({ dest: 'uploads/' });
+const upload = multer({ dest: '../uploads' });
 
 // Signup route
 app.post('/signup', async (req, res) => {
@@ -96,7 +96,6 @@ app.post('/login', async (req, res) => {
 });
 
 // Register route with file upload
-// Register route with file upload
 app.post('/register', upload.single('establishmentCopy'), authenticateToken, async (req, res) => {
   try {
     const userId = req.user.id;
@@ -104,6 +103,10 @@ app.post('/register', upload.single('establishmentCopy'), authenticateToken, asy
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
+    }
+
+    if (user.registrationCompleted) {
+      return res.status(400).json({ message: 'User has already registered' });
     }
 
     user.registration = {
@@ -120,7 +123,7 @@ app.post('/register', upload.single('establishmentCopy'), authenticateToken, asy
       pincode: req.body.pincode,
       mobileNumber: req.body.mobileNumber,
       email: req.body.email,
-      establishmentCopy: req.file ? req.file.path : '../uploads', // Store file path
+      establishmentCopy: req.file ? req.file.path : '../uploads',
       headOfOrganization: req.body.headOfOrganization,
       orgAddress: req.body.orgAddress,
       orgContactNumber: req.body.orgContactNumber,
@@ -130,10 +133,37 @@ app.post('/register', upload.single('establishmentCopy'), authenticateToken, asy
       coordinatorEmailID: req.body.coordinatorEmailID,
     };
 
+    // Initialize request status
+    user.requestStatus = {
+      requestReceived: 0,
+      inProgress: 0,
+      completed: 0,
+    };
+
+    user.registrationCompleted = true;
     await user.save();
     res.status(200).json({ message: 'Registration successful' });
   } catch (err) {
     console.error('Error during registration:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
+
+
+
+// Get registration details
+
+app.get('/registration-details', authenticateToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user || !user.registration) {
+      return res.status(404).json({ message: 'No registration found' });
+    }
+    res.json(user.registration);
+  } catch (err) {
+    console.error('Error fetching registration details:', err);
     res.status(500).json({ message: 'Server error' });
   }
 });
