@@ -27,7 +27,7 @@ mongoose.connect('mongodb+srv://bitterlipshai:vZufH8O82sMLVmCG@mydatabase.nwhl5.
 });
 
 app.use(session({
-  secret: 'your_secret_key',
+  secret: 'ayushbusinessp',
   resave: false,
   saveUninitialized: true,
   cookie: { secure: false } // Set to true if using HTTPS
